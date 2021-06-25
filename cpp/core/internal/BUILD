@@ -82,6 +82,7 @@ cc_library(
         "wifi_lan_endpoint_channel.h",
         "wifi_lan_service_info.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = [
         "//core:__pkg__",
         "//core/internal/fuzzers:__pkg__",
@@ -119,6 +120,7 @@ cc_library(
     hdrs = [
         "message_lite.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = [
         "//core:__subpackages__",
     ],

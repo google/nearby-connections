@@ -35,6 +35,7 @@ cc_library(
         "webrtc.h",
         "wifi_lan.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = [
         "//core/internal:__subpackages__",
     ],
@@ -66,6 +67,7 @@ cc_library(
     name = "utils",
     srcs = ["utils.cc"],
     hdrs = ["utils.h"],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = [
         "//core/internal:__pkg__",
         "//core/internal/mediums:__pkg__",

@@ -28,6 +28,7 @@ cc_library(
         "ble_peripheral.h",
         "discovered_peripheral_callback.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = [
         "//core/internal:__subpackages__",
     ],
