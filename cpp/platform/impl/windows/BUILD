@@ -120,6 +120,7 @@ cc_test(
         "input_file_test.cc",
         "output_file_test.cc",
     ],
+    tags = ["windows"],
     deps = [
         ":comm",
         ":crypto",
