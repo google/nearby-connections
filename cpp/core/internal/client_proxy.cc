@@ -15,7 +15,9 @@
 #include "core/internal/client_proxy.h"
 
 #include <cstdlib>
+#include <functional>
 #include <limits>
+#include <string>
 #include <utility>
 
 #include "platform/base/feature_flags.h"
@@ -41,7 +43,12 @@ constexpr char kEndpointIdChars[] = {
     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
     'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
-ClientProxy::ClientProxy() : client_id_(Prng().NextInt64()) {}
+ClientProxy::ClientProxy(analytics::EventLogger* event_logger)
+    : client_id_(Prng().NextInt64()) {
+  NEARBY_LOGS(INFO) << "ClientProxy ctor event_logger=" << event_logger;
+  analytics_recorder_ =
+      std::make_unique<analytics::AnalyticsRecorder>(event_logger);
+}
 
 ClientProxy::~ClientProxy() { Reset(); }
 
