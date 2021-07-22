@@ -88,6 +88,7 @@ cc_library(
     ],
     deps = [
         ":message_lite",
+        "//location/nearby/connections/analytics",
         "//core:core_types",
         "//core/internal/mediums",
         "//core/internal/mediums:utils",
@@ -148,7 +149,7 @@ cc_library(
         "//platform/base",
         "//platform/base:test_util",
         "//platform/public:types",
-        "//testing/base/public:gunit",
+        "//testing/base/public:gunit_for_library_testonly",
         "//absl/functional:bind_front",
         "//absl/strings",
     ],

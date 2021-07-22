@@ -15,7 +15,9 @@
 #include "core/internal/client_proxy.h"
 
 #include <cstdlib>
+#include <functional>
 #include <limits>
+#include <string>
 #include <utility>
 
 #include "platform/base/feature_flags.h"
@@ -41,7 +43,12 @@ constexpr char kEndpointIdChars[] = {
     'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
     'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
 
-ClientProxy::ClientProxy() : client_id_(Prng().NextInt64()) {}
+ClientProxy::ClientProxy(analytics::EventLogger* event_logger)
+    : client_id_(Prng().NextInt64()) {
+  NEARBY_LOGS(INFO) << "ClientProxy ctor event_logger=" << event_logger;
+  analytics_recorder_ =
+      std::make_unique<analytics::AnalyticsRecorder>(event_logger);
+}
 
 ClientProxy::~ClientProxy() { Reset(); }
 
@@ -82,6 +89,7 @@ void ClientProxy::Reset() {
   StoppedDiscovery();
   RemoveAllEndpoints();
   ExitHighVisibilityMode();
+  analytics_recorder_->LogSession();
 }
 
 void ClientProxy::StartedAdvertising(
@@ -104,6 +112,10 @@ void ClientProxy::StartedAdvertising(
 
   advertising_info_ = {service_id, listener};
   advertising_options_ = advertising_options;
+
+  const std::vector<proto::connections::Medium> medium_vector =
+      std::vector<proto::connections::Medium>(mediums.begin(), mediums.end());
+  analytics_recorder_->OnStartAdvertising(strategy, medium_vector, 0);
 }
 
 void ClientProxy::StoppedAdvertising() {
