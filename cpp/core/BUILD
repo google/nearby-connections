@@ -26,6 +26,7 @@ cc_library(
     ],
     deps = [
         ":core_types",
+        ":event_logger",
         "//core/internal",
         "//platform/base",
         "//platform/public:logging",
@@ -59,6 +60,16 @@ cc_library(
         "//proto:connections_enums_portable_proto",
         "//absl/strings",
         "//absl/types:variant",
+    ],
+)
+
+cc_library(
+    name = "event_logger",
+    hdrs = [
+        "event_logger.h",
+    ],
+    deps = [
+        "//platform/base",
     ],
 )
 
