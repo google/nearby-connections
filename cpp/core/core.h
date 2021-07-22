@@ -15,8 +15,10 @@
 #ifndef CORE_CORE_H_
 #define CORE_CORE_H_
 
+#include <functional>
 #include <string>
 
+#include "core/event_logger.h"
 #include "core/internal/client_proxy.h"
 #include "core/internal/offline_service_controller.h"
 #include "core/internal/service_controller.h"
@@ -37,6 +39,12 @@ class Core {
   explicit Core(std::function<ServiceController*()> factory =
                     []() { return new OfflineServiceController; })
       : router_(factory) {}
+  // Client needs to call this constructor if analytics logger is needed.
+  explicit Core(
+      analytics::EventLogger* event_logger,
+      std::function<ServiceController*()> factory =
+          []() { return new OfflineServiceController; })
+      : client_(event_logger), router_(factory) {}
   ~Core();
   Core(Core&&) = default;
   Core& operator=(Core&&) = default;
