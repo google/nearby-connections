@@ -14,6 +14,7 @@
 
 cc_library(
     name = "types",
+    compatible_with = ["//buildenv/target:non_prod"],
     linkopts = [
         "advapi32.lib",
         "comdlg32.lib",

@@ -35,6 +35,7 @@ cc_library(
         "settable_future.h",
         "submittable_executor.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     deps = [
         "//base",
         "//platform/api:types",
@@ -53,6 +54,7 @@ cc_library(
         "wifi.h",
         "wifi_lan.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = ["//visibility:private"],
     deps = [
         "//platform/api:comm",
@@ -65,6 +67,7 @@ cc_library(
     srcs = [
         "crypto.cc",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     visibility = ["//visibility:private"],
     deps = [
         "//platform/api:types",
@@ -90,6 +93,7 @@ cc_library(
         "bluetooth_classic_server_socket.h",
         "bluetooth_classic_socket.h",
     ],
+    compatible_with = ["//buildenv/target:non_prod"],
     copts = ["-Iplatform/impl/windows/generated"],
     visibility = [
         "//location/nearby/connections/windows:__subpackages__",
