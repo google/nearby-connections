@@ -41,6 +41,7 @@ cc_library(
     ],
     visibility = [
         "//googlemac/iPhone/Shared/Nearby/Connections:__subpackages__",
+        "//location/nearby/connections/analytics:__subpackages__",
         "//core:__subpackages__",
         "//platform:__subpackages__",
         "//platform/api:__subpackages__",
