@@ -16,9 +16,11 @@
 #define CORE_INTERNAL_CLIENT_PROXY_H_
 
 #include <cstdint>
+#include <functional>
 #include <string>
 #include <vector>
 
+#include "location/nearby/connections/analytics/analytics_recorder.h"
 #include "core/listeners.h"
 #include "core/options.h"
 #include "core/status.h"
@@ -46,7 +48,7 @@ class ClientProxy final {
   static constexpr absl::Duration
       kHighPowerAdvertisementEndpointIdCacheTimeout = absl::Seconds(30);
 
-  ClientProxy();
+  explicit ClientProxy(analytics::EventLogger* event_logger = nullptr);
   ~ClientProxy();
   ClientProxy(ClientProxy&&) = default;
   ClientProxy& operator=(ClientProxy&&) = default;
@@ -298,6 +300,10 @@ class ClientProxy final {
   // A default cancellation flag with isCancelled set be true.
   std::unique_ptr<CancellationFlag> default_cancellation_flag_ =
       std::make_unique<CancellationFlag>(true);
+
+  // An analytics logger with |EventLogger| provided by client, which is default
+  // nullptr as no-op.
+  std::unique_ptr<analytics::AnalyticsRecorder> analytics_recorder_;
 };
 
 }  // namespace connections
